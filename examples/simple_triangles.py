@@ -4,7 +4,6 @@ import jax
 import jax.lax as lax
 import jax.numpy as jnp
 from jaxtyping import Array, Bool, Float
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from renderer import Tuple, jit
 from renderer.geometry import Camera, normalise, to_homogeneous
@@ -12,6 +11,7 @@ from renderer.pipeline import render
 from renderer.shader import ID, MixerOutput, PerFragment, PerVertex, Shader
 from renderer.shaders.gouraud import GouraudExtraInput, GouraudShader
 from renderer.types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Buffers,
     Colour,
@@ -114,7 +114,7 @@ class ExtraMixerOutput(NamedTuple):
 
 class _Shader(Shader[ExtraInput, ExtraFragmentData, ExtraMixerOutput]):
     @staticmethod
-    @jaxtyped
+    @typechecked
     @jit
     def vertex(
         gl_VertexID: ID,
@@ -149,7 +149,7 @@ class _Shader(Shader[ExtraInput, ExtraFragmentData, ExtraMixerOutput]):
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @jit
     def fragment(
         gl_FragCoord: Vec4f,
@@ -179,7 +179,7 @@ class _Shader(Shader[ExtraInput, ExtraFragmentData, ExtraMixerOutput]):
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @jit
     def mix(
         gl_FragDepth: Float[Array, "primitives"],

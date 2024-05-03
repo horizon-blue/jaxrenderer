@@ -5,11 +5,10 @@ from typing import List
 from PIL import Image
 import jax
 import jax.numpy as jnp
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 import numpy as np
 
 from renderer import Tuple, TypeAlias
-from renderer.types import FaceIndices, Normals, Texture, UVCoordinates, Vertices
+from renderer.types import typechecked, FaceIndices, Normals, Texture, UVCoordinates, Vertices   # pyright: ignore[reportUnknownVariableType]
 
 if hasattr(jax.config, "jax_array"):
     jax.config.update("jax_array", True)  # pyright: ignore[reportUnknownMemberType]
@@ -27,7 +26,7 @@ class Model:
     faces_norm: FaceIndices
     faces_uv: FaceIndices
 
-    @jaxtyped
+    @typechecked
     def __post_init__(self) -> None:
         assert isinstance(self.verts, Vertices), self.verts.shape
         assert isinstance(self.norms, Vertices), self.norms.shape

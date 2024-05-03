@@ -7,7 +7,6 @@ import jax
 import jax.lax as lax
 import jax.numpy as jnp
 from jaxtyping import Array, Bool, Float, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from .._backport import Tuple
 from .._meta_utils import add_tracing_name
@@ -16,6 +15,7 @@ from ..geometry import Camera, normalise, to_homogeneous
 from ..model import MergedModel
 from ..shader import ID, MixerOutput, PerFragment, PerVertex, Shader
 from ..types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Colour,
     FloatV,
@@ -99,7 +99,7 @@ class PhongReflectionTextureShader(
     """PhongReflection Shading with simple parallel lighting and texture."""
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def vertex(
@@ -133,7 +133,7 @@ class PhongReflectionTextureShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def interpolate(
@@ -153,7 +153,7 @@ class PhongReflectionTextureShader(
         return varying
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def fragment(
@@ -236,7 +236,7 @@ class PhongReflectionTextureShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def mix(

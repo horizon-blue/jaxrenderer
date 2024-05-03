@@ -7,15 +7,14 @@ import jax
 from jax import lax
 import jax.numpy as jnp
 from jaxtyping import Array, Integer, Num, Shaped
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import Tuple
 from ._meta_utils import add_tracing_name
 from ._meta_utils import typed_jit as jit
-from .types import Canvas, IntV, Texture, ZBuffer
+from .types import typechecked, Canvas, IntV, Texture, ZBuffer  # pyright: ignore[reportUnknownVariableType]
 
 
-@jaxtyped
+@typechecked
 @partial(jit, inline=True)
 @add_tracing_name
 def get_value_from_index(
@@ -33,7 +32,7 @@ def get_value_from_index(
     return jax.vmap(jax.vmap(_get))(matrix, index)
 
 
-@jaxtyped
+@typechecked
 @partial(jit, inline=True)
 @add_tracing_name
 def merge_canvases(
@@ -69,7 +68,7 @@ def merge_canvases(
     return zbuffer, canvas
 
 
-@jaxtyped
+@typechecked
 @partial(
     jit,
     inline=True,
@@ -96,7 +95,7 @@ def transpose_for_display(
     return mat
 
 
-@jaxtyped
+@typechecked
 @add_tracing_name
 def build_texture_from_PyTinyrenderer(
     texture: Union[Num[Array, "length"], Sequence[float]],

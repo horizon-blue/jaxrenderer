@@ -2,12 +2,11 @@ from typing import Union
 
 import jax.numpy as jnp
 from jaxtyping import Array, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
-from .types import BoolV, IntV
+from .types import typechecked, BoolV, IntV  # pyright: ignore[reportUnknownVariableType]
 
 
-@jaxtyped
+@typechecked
 def index_in_bound(
     indices: Integer[Array, "*any"],
     bound: Union[int, IntV, Integer[Array, "2"]],

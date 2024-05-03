@@ -43,6 +43,12 @@ __all__ = [
 if hasattr(jax.config, "jax_array"):
     jax.config.update("jax_array", True)  # pyright: ignore[reportUnknownMemberType]
 
+try:
+    # since jaxtyping 0.2.24, typechecker kwarg needs to be explicitly provided
+    typechecked = jaxtyped(typechecker=None) # pyright: ignore[reportUnknownVariableType]
+except TypeError:
+    typechecked = jaxtyped # pyright: ignore[reportUnknownVariableType]
+
 BoolV: TypeAlias = Bool[Array, ""]
 """JAX Array with single bool value.""" ""
 FloatV: TypeAlias = Float[Array, ""]
@@ -100,7 +106,7 @@ class DtypeInfo(NamedTuple, Generic[_DtypeT]):
     dtype: Type
 
     @classmethod
-    @jaxtyped
+    @typechecked
     # cannot be jitted as `dtype` will not be a valid JAX type
     def create(cls, dtype: Type[_DtypeT]) -> "DtypeInfo[_DtypeT]":
         with jax.ensure_compile_time_eval():

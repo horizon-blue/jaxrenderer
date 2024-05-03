@@ -10,13 +10,13 @@ import jax.numpy as jnp
 from jax.tree_util import Partial, tree_map
 from jaxtyping import Array, Bool, Float, Shaped
 from jaxtyping import PyTree  # pyright: ignore[reportUnknownVariableType]
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import Tuple, TypeAlias
 from ._meta_utils import add_tracing_name
 from ._meta_utils import typed_jit as jit
 from .geometry import Camera, Interpolation, interpolate
 from .types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     FALSE_ARRAY,
     INF_ARRAY,
     TRUE_ARRAY,
@@ -97,7 +97,7 @@ class Shader(ABC, Generic[ShaderExtraInputT, VaryingT, MixedExtraT]):
     """
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     @abstractmethod
@@ -154,7 +154,7 @@ class Shader(ABC, Generic[ShaderExtraInputT, VaryingT, MixedExtraT]):
         raise NotImplementedError("vertex shader not implemented")
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def primitive_chooser(
@@ -252,7 +252,7 @@ class Shader(ABC, Generic[ShaderExtraInputT, VaryingT, MixedExtraT]):
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def interpolate(
@@ -291,7 +291,7 @@ class Shader(ABC, Generic[ShaderExtraInputT, VaryingT, MixedExtraT]):
         return varying
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def fragment(
@@ -334,7 +334,7 @@ class Shader(ABC, Generic[ShaderExtraInputT, VaryingT, MixedExtraT]):
         return PerFragment(use_default_depth=TRUE_ARRAY), varying
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def mix(

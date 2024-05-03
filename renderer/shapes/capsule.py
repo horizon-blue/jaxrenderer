@@ -3,10 +3,10 @@ import enum
 import jax
 import jax.numpy as jnp
 from jaxtyping import Array, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ..model import Model
 from ..types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     FaceIndices,
     FloatV,
     Normals,
@@ -1961,7 +1961,7 @@ class UpAxis(enum.IntEnum):
     Z = 2
 
 
-@jaxtyped
+@typechecked
 def create_capsule(
     radius: FloatV,
     half_height: FloatV,

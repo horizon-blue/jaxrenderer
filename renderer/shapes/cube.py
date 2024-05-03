@@ -1,10 +1,10 @@
 import jax
 import jax.numpy as jnp
 from jaxtyping import Array, Float
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ..model import Model
 from ..types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     FaceIndices,
     Normals,
     SpecularMap,
@@ -140,7 +140,7 @@ with jax.ensure_compile_time_eval():
     )
 
 
-@jaxtyped
+@typechecked
 def create_cube(
     half_extents: Float[Array, "3"],
     texture_scaling: Float[Array, "2"],

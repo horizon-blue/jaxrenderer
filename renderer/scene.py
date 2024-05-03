@@ -5,13 +5,12 @@ from typing import NamedTuple, NewType, Optional, Union
 import jax.lax as lax
 import jax.numpy as jnp
 from jaxtyping import Array, Float
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import DictT, Tuple, replace_dict
 from .model import Model, ModelObject
 from .shapes.capsule import UpAxis, create_capsule
 from .shapes.cube import create_cube
-from .types import BoolV, SpecularMap, Texture, Vec3f, Vec4f
+from .types import typechecked, BoolV, SpecularMap, Texture, Vec3f, Vec4f    # pyright: ignore[reportUnknownVariableType]
 
 GUID = NewType("GUID", int)
 
@@ -30,7 +29,7 @@ class Scene(NamedTuple):
     objects: DictT[GUID, ModelObject] = {}
     """Objects in the scene, indexed by their unique identifier."""
 
-    @jaxtyped
+    @typechecked
     def add_model(self, model: Model) -> Tuple["Scene", GUID]:
         """Add a model to the scene.
 
@@ -48,7 +47,7 @@ class Scene(NamedTuple):
 
         return new_scene, guid
 
-    @jaxtyped
+    @typechecked
     def add_cube(
         self,
         half_extents: Union[Float[Array, "3"], Tuple[float, float, float]],
@@ -98,7 +97,7 @@ class Scene(NamedTuple):
 
         return self.add_model(model)
 
-    @jaxtyped
+    @typechecked
     def add_capsule(
         self,
         radius: float,
@@ -133,7 +132,7 @@ class Scene(NamedTuple):
 
         return self.add_model(model)
 
-    @jaxtyped
+    @typechecked
     def add_object_instance(self, model_id: GUID) -> Tuple["Scene", GUID]:
         """Add an object instance to the scene.
 
@@ -151,7 +150,7 @@ class Scene(NamedTuple):
 
         return new_scene, guid
 
-    @jaxtyped
+    @typechecked
     def delete_model(self, model_id: GUID, check: bool) -> "Scene":
         """Delete a model from the scene.
 
@@ -178,7 +177,7 @@ class Scene(NamedTuple):
 
         return self._replace(models=models)
 
-    @jaxtyped
+    @typechecked
     def delete_object(self, object_id: GUID, check: bool) -> "Scene":
         """Delete an object from the scene.
 
@@ -198,7 +197,7 @@ class Scene(NamedTuple):
 
         return self._replace(objects=objects)
 
-    @jaxtyped
+    @typechecked
     def _replace_obj(self, object_id: GUID, new_obj: ModelObject) -> "Scene":
         """Replace an object in the scene.
 
@@ -213,7 +212,7 @@ class Scene(NamedTuple):
             )
         )
 
-    @jaxtyped
+    @typechecked
     def set_object_position(
         self,
         object_id: GUID,
@@ -235,7 +234,7 @@ class Scene(NamedTuple):
 
         return self._replace_obj(object_id, new_obj)
 
-    @jaxtyped
+    @typechecked
     def set_object_orientation(
         self,
         object_id: GUID,
@@ -268,7 +267,7 @@ class Scene(NamedTuple):
 
         return self._replace_obj(object_id, new_obj)
 
-    @jaxtyped
+    @typechecked
     def set_object_local_scaling(
         self,
         object_id: GUID,
@@ -290,7 +289,7 @@ class Scene(NamedTuple):
 
         return self._replace_obj(object_id, new_obj)
 
-    @jaxtyped
+    @typechecked
     def set_object_double_sided(
         self,
         object_id: GUID,

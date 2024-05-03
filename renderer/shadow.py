@@ -4,7 +4,6 @@ from typing import NamedTuple
 import jax
 import jax.lax as lax
 import jax.numpy as jnp
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import Tuple
 from ._meta_utils import add_tracing_name
@@ -12,6 +11,7 @@ from .geometry import Camera, View, Viewport
 from .pipeline import render
 from .shaders.depth import DepthExtraInput, DepthShader
 from .types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     Buffers,
     Colour,
     FaceIndices,
@@ -38,7 +38,7 @@ class Shadow(NamedTuple):
     """Camera from world space to shadow map's screen space."""
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(
         jax.jit,  # pyright: ignore[reportUnknownMemberType]
         static_argnames=("loop_unroll",),
@@ -124,7 +124,7 @@ class Shadow(NamedTuple):
 
         return shadow
 
-    @jaxtyped
+    @typechecked
     @add_tracing_name
     def get(self, position: Vec2f) -> FloatV:
         """Get shadow depth at `position`.

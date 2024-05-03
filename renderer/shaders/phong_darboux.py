@@ -8,7 +8,6 @@ import jax.lax as lax
 import jax.numpy as jnp
 from jax.tree_util import Partial
 from jaxtyping import Array, Bool, Float, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from .._backport import Tuple, TypeAlias
 from .._meta_utils import add_tracing_name
@@ -23,6 +22,7 @@ from ..geometry import (
 )
 from ..shader import ID, MixerOutput, PerFragment, PerVertex, Shader
 from ..types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Colour,
     FaceIndices,
@@ -115,7 +115,7 @@ class PhongTextureDarbouxShader(
     represented in tangent space (Darboux frame)."""
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def vertex(
@@ -171,7 +171,7 @@ class PhongTextureDarbouxShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def interpolate(
@@ -207,7 +207,7 @@ class PhongTextureDarbouxShader(
         return varying
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def fragment(
@@ -294,7 +294,7 @@ class PhongTextureDarbouxShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def mix(

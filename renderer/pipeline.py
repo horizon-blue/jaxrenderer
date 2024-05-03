@@ -5,11 +5,9 @@ from typing import Any, NamedTuple, TypeVar, cast
 
 import jax
 from jax import lax
-import jax.lax as lax
 import jax.numpy as jnp
 from jax.tree_util import tree_map
 from jaxtyping import Array, Bool, Float, Integer, Num
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import Tuple
 from ._meta_utils import add_tracing_name
@@ -26,6 +24,7 @@ from .shader import (
     VaryingT,
 )
 from .types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Buffers,
     CanvasMask,
@@ -75,7 +74,7 @@ class PerPrimitive(NamedTuple):
     """inverse of the matrix described above (of [x, y, w])."""
 
     @classmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, static_argnames=("cls",), inline=True)
     @add_tracing_name
     def create(cls, per_vertex: PerVertex) -> "PerPrimitive":
@@ -117,7 +116,7 @@ class PerPrimitive(NamedTuple):
 T = TypeVar("T", bound=Tuple[Any, ...])
 
 
-@jaxtyped
+@typechecked
 @partial(
     jit,
     static_argnames=("shader", "loop_unroll"),
@@ -142,7 +141,7 @@ def _postprocessing(
             int, int(buffers[0].shape[0])
         )
 
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def _per_pixel(coord: Vec2i) -> Tuple[MixerOutput, MixedExtraT]:
@@ -158,7 +157,7 @@ def _postprocessing(
             Float[Array, "kept_primitives 3"],  #
         ]
 
-        @jaxtyped
+        @typechecked
         @partial(jit, inline=True)
         @add_tracing_name
         def _per_primitive_preprocess(
@@ -361,7 +360,7 @@ def _postprocessing(
 
     # END OF `_per_pixel`
 
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def _per_row(
@@ -396,7 +395,7 @@ def _postprocessing(
 
     # END OF `_per_row`
 
-    @jaxtyped
+    @typechecked
     @partial(jit, donate_argnums=(1,), inline=True)
     @add_tracing_name
     def merge_buffers(
@@ -460,7 +459,7 @@ def _postprocessing(
     return buffers
 
 
-@jaxtyped
+@typechecked
 @partial(
     jit,
     static_argnames=("shader", "loop_unroll"),
@@ -495,7 +494,7 @@ def render(
         assert isinstance(vertices_count, int)
         assert isinstance(gl_InstanceID, ID)
 
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def vertex_processing(gl_VertexID: IntV) -> Tuple[PerVertex, VaryingT]:

@@ -7,7 +7,6 @@ import jax
 import jax.lax as lax
 import jax.numpy as jnp
 from jaxtyping import Array, Bool, Float, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 from typing_extensions import override
 
 from .._backport import Tuple
@@ -18,6 +17,7 @@ from ..model import MergedModel
 from ..shader import ID, MixerOutput, PerFragment, PerVertex, Shader
 from ..shadow import Shadow
 from ..types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Colour,
     IntV,
@@ -109,7 +109,7 @@ class PhongReflectionShadowTextureShader(
     """
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     @override
@@ -151,7 +151,7 @@ class PhongReflectionShadowTextureShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     @override
@@ -172,7 +172,7 @@ class PhongReflectionShadowTextureShader(
         return varying
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     @override
@@ -272,7 +272,7 @@ class PhongReflectionShadowTextureShader(
         )
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     @override

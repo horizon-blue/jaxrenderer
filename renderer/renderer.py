@@ -8,7 +8,6 @@ import jax.lax as lax
 import jax.numpy as jnp
 from jax.tree_util import tree_map
 from jaxtyping import Array, Bool, Integer
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from ._backport import Tuple, TypeAlias
 from ._meta_utils import add_tracing_name
@@ -26,6 +25,7 @@ from .shaders.phong_reflection_shadow import (
 )
 from .shadow import Shadow
 from .types import (
+    typechecked,  # pyright: ignore[reportUnknownVariableType]
     Buffers,
     Canvas,
     Colour,
@@ -135,7 +135,7 @@ class ShadowParameters(NamedTuple):
 
 class Renderer:
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def create_camera_from_parameters(camera: CameraParameters) -> Camera:
@@ -196,7 +196,7 @@ class Renderer:
         return _camera
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @add_tracing_name
     def create_buffers(
         width: int,
@@ -243,7 +243,7 @@ class Renderer:
         return buffers
 
     @classmethod
-    @jaxtyped
+    @typechecked
     @partial(
         jit,
         static_argnames=("cls", "loop_unroll"),
@@ -385,7 +385,7 @@ class Renderer:
             return buffers
 
     @classmethod
-    @jaxtyped
+    @typechecked
     @partial(
         jit,
         static_argnames=("cls", "width", "height", "loop_unroll"),

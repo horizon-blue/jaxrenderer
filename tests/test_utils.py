@@ -5,11 +5,11 @@ from functools import partial
 import jax.numpy as jnp
 import jax.random as random
 from jaxtyping import Array, Shaped
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 import numpy as np
 import pytest
 
 from renderer import List, Tuple
+from renderer.types import typechecked  # pyright: ignore[reportUnknownVariableType]
 from renderer.utils import transpose_for_display
 
 PRNG_KEYS: List[random.KeyArray] = [random.key(20230701)]
@@ -21,7 +21,7 @@ class TestTransposeForDisplay:
         "shape", [(1, 1), (1, 7), (3, 1), (20, 31, 3), (11, 11, 4)]
     )
     @pytest.mark.parametrize("flip_vertical", [True, False])
-    @jaxtyped
+    @typechecked
     def test_transposed_shape_must_be_flipped_along_first_two_axis(
         self,
         PRNG_KEY: random.KeyArray,
@@ -50,7 +50,7 @@ class TestTransposeForDisplay:
         "shape", [(1, 1), (1, 7), (3, 1), (20, 31, 3), (11, 11, 4)]
     )
     @pytest.mark.parametrize("flip_vertical", [True, False])
-    @jaxtyped
+    @typechecked
     def test_transposed_unique_values_and_count_must_be_the_same(
         self,
         PRNG_KEY: random.KeyArray,
@@ -84,7 +84,7 @@ class TestTransposeForDisplay:
 
     @pytest.mark.parametrize("PRNG_KEY", PRNG_KEYS)
     @pytest.mark.parametrize("shape", [(5, 3), (20, 31, 3), (11, 11, 4)])
-    @jaxtyped
+    @typechecked
     def test_flip_vertical(
         self,
         PRNG_KEY: random.KeyArray,

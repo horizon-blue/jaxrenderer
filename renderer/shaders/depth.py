@@ -5,14 +5,13 @@ from typing import NamedTuple
 
 import jax
 from jaxtyping import Array, Float
-from jaxtyping import jaxtyped  # pyright: ignore[reportUnknownVariableType]
 
 from .._backport import Tuple
 from .._meta_utils import add_tracing_name
 from .._meta_utils import typed_jit as jit
 from ..geometry import Camera, to_homogeneous
 from ..shader import ID, PerVertex, Shader
-from ..types import Vec4f
+from ..types import typechecked, Vec4f  # pyright: ignore[reportUnknownVariableType]
 
 if hasattr(jax.config, "jax_array"):
     jax.config.update("jax_array", True)  # pyright: ignore[reportUnknownMemberType]
@@ -42,7 +41,7 @@ class DepthShader(
     """Depth Shading."""
 
     @staticmethod
-    @jaxtyped
+    @typechecked
     @partial(jit, inline=True)
     @add_tracing_name
     def vertex(

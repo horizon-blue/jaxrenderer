@@ -90,8 +90,8 @@ only_modified = true
 skip_gitignore = true
 
 [tool.black]
-target-versions = ["py38", "py39", "py310", "py311"]
-required-version = 23
+target-version = ["py38", "py39", "py310", "py311"]
+required-version = "23"
 
 [tool.pyright]
 include = ["renderer", "examples", "test_resources", "tests"]
@@ -102,7 +102,7 @@ pythonVersion = "3.11"
 pythonPlatform = "All"
 
 executionEnvironments = [
-  { root = ".", pythonVersion = "3.11", pythonPlatform = "All" },
+    { root = ".", pythonVersion = "3.11", pythonPlatform = "All" },
 ]
 
 reportCallInDefaultInitializer = "information"
