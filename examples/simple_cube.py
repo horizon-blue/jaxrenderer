@@ -1,12 +1,12 @@
 import jax.numpy as jnp
 
-import renderer
+import jaxrenderer
 
 ImageWidth: int = 640
 ImageHeight: int = 480
 
 # Create a cube with texture map of pure blue
-cube = renderer.create_cube(
+cube = jaxrenderer.create_cube(
     half_extents=jnp.ones(  # pyright: ignore[reportUnknownMemberType]
         3, dtype=jnp.single
     ),
@@ -25,10 +25,10 @@ cube = renderer.create_cube(
 )
 
 # Render the cube
-image = renderer.Renderer.get_camera_image(
-    objects=[renderer.ModelObject(model=cube)],
+image = jaxrenderer.Renderer.get_camera_image(
+    objects=[jaxrenderer.ModelObject(model=cube)],
     # Simply use defaults
-    camera=renderer.CameraParameters(
+    camera=jaxrenderer.CameraParameters(
         viewWidth=ImageWidth,
         viewHeight=ImageHeight,
         position=jnp.array(  # pyright: ignore[reportUnknownMemberType]
@@ -36,7 +36,7 @@ image = renderer.Renderer.get_camera_image(
         ),
     ),
     # Simply use defaults
-    light=renderer.LightParameters(),
+    light=jaxrenderer.LightParameters(),
     width=ImageWidth,
     height=ImageHeight,
 )
@@ -46,7 +46,7 @@ import matplotlib.pyplot as plt
 fig, ax = plt.subplots()  # pyright: ignore
 
 ax.imshow(  # pyright: ignore[reportUnknownMemberType]
-    renderer.transpose_for_display(image)
+    jaxrenderer.transpose_for_display(image)
 )
 
 plt.show()  # pyright: ignore[reportUnknownMemberType]

@@ -8,9 +8,9 @@ from jaxtyping import Array, Shaped
 import numpy as np
 import pytest
 
-from renderer import List, Tuple
-from renderer.types import typechecked  # pyright: ignore[reportUnknownVariableType]
-from renderer.utils import transpose_for_display
+from jaxrenderer import List, Tuple
+from jaxrenderer.types import typechecked  # pyright: ignore[reportUnknownVariableType]
+from jaxrenderer.utils import transpose_for_display
 
 PRNG_KEYS: List[random.KeyArray] = [random.key(20230701)]
 

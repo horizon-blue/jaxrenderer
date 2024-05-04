@@ -21,7 +21,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 packages = [
-    { include = "renderer" },
+    { include = "jaxrenderer" },
 ]
 include = [
     "LICENSE",
@@ -79,7 +79,7 @@ addopts = [
 [tool.isort]
 profile = "black"
 py_version= 311
-src_paths = ["renderer", "examples", "test_resources", "tests"]
+src_paths = ["jaxrenderer", "examples", "test_resources", "tests"]
 line_length = 88
 combine_star = true
 order_by_type = true
@@ -94,7 +94,7 @@ target-version = ["py38", "py39", "py310", "py311"]
 required-version = "23"
 
 [tool.pyright]
-include = ["renderer", "examples", "test_resources", "tests"]
+include = ["jaxrenderer", "examples", "test_resources", "tests"]
 exclude = ["typings/**", ".*/**", "**/node_modules", "**/__pycache__"]
 typeCheckingMode = "strict"
 

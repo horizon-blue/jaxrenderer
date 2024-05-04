@@ -7,8 +7,8 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 
-from renderer import Tuple, TypeAlias
-from renderer.types import typechecked, FaceIndices, Normals, Texture, UVCoordinates, Vertices   # pyright: ignore[reportUnknownVariableType]
+from jaxrenderer import Tuple, TypeAlias
+from jaxrenderer.types import typechecked, FaceIndices, Normals, Texture, UVCoordinates, Vertices   # pyright: ignore[reportUnknownVariableType]
 
 if hasattr(jax.config, "jax_array"):
     jax.config.update("jax_array", True)  # pyright: ignore[reportUnknownMemberType]

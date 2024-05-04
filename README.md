@@ -26,22 +26,20 @@ The minimum Python version is `3.8`, and the minimum JAX version is `0.4.0`. You
 
 ## Usage
 
-> Please note that the package is imported with name `renderer` rather than the PyPI package name `jaxrenderer`. This may change in the future though.
-
 Some example scripts are provided in [examples](examples) folder. You may find the [demo notebook](notebooks/Demo.ipynb) useful as well. In the demo, there is batch rendering and differentiable rendering examples.
 
 The following is a simple example of rendering a cube with a texture map:
 
 ```python
 import jax.numpy as jnp
-import renderer
+import jaxrenderer
 
 
 ImageWidth: int = 640
 ImageHeight: int = 480
 
 # Create a cube with texture map of pure blue
-cube = renderer.create_cube(
+cube = jaxrenderer.create_cube(
     half_extents=jnp.ones(3, dtype=jnp.single),
     texture_scaling=jnp.ones(2, dtype=jnp.single),
     # pure blue texture map
@@ -50,16 +48,16 @@ cube = renderer.create_cube(
 )
 
 # Render the cube
-image = renderer.Renderer.get_camera_image(
-    objects=[renderer.ModelObject(model=cube)],
+image = jaxrenderer.Renderer.get_camera_image(
+    objects=[jaxrenderer.ModelObject(model=cube)],
     # Simply use defaults
-    camera=renderer.CameraParameters(
+    camera=jaxrenderer.CameraParameters(
         viewWidth=ImageWidth,
         viewHeight=ImageHeight,
         position=jnp.array([2.0, 4.0, 1.0], dtype=jnp.single),
     ),
     # Simply use defaults
-    light=renderer.LightParameters(),
+    light=jaxrenderer.LightParameters(),
     width=ImageWidth,
     height=ImageHeight,
 )
@@ -71,7 +69,7 @@ You may refer to [demo](https://colab.research.google.com/github/JoeyTeng/jaxren
 
 #### Built-in Shaders
 
-See [`renderer/shaders`](renderer/shaders) for more details.
+See [`jaxrenderer/shaders`](jaxrenderer/shaders) for more details.
 
 | Shader Name | Description | Light Direction |
 | ----------- | ----------- | --------------- |

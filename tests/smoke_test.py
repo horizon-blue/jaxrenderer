@@ -5,12 +5,12 @@ import jax.lax as lax
 import jax.numpy as jnp
 from jaxtyping import Array, Bool, Float
 
-from renderer import Tuple, jit
-from renderer.geometry import Camera, normalise, to_homogeneous
-from renderer.pipeline import render
-from renderer.shader import ID, MixerOutput, PerFragment, PerVertex, Shader
-from renderer.shaders.gouraud import GouraudExtraInput, GouraudShader
-from renderer.types import (
+from jaxrenderer import Tuple, jit
+from jaxrenderer.geometry import Camera, normalise, to_homogeneous
+from jaxrenderer.pipeline import render
+from jaxrenderer.shader import ID, MixerOutput, PerFragment, PerVertex, Shader
+from jaxrenderer.shaders.gouraud import GouraudExtraInput, GouraudShader
+from jaxrenderer.types import (
     typechecked,  # pyright: ignore[reportUnknownVariableType]
     BoolV,
     Buffers,
@@ -21,7 +21,7 @@ from renderer.types import (
     Vec3f,
     Vec4f,
 )
-from renderer.utils import transpose_for_display
+from jaxrenderer.utils import transpose_for_display
 
 
 def test_render_batched_triangles():

@@ -4,7 +4,7 @@ import jax
 import jax.numpy as jnp
 from jaxtyping import Array, Float
 
-from renderer import (
+from jaxrenderer import (
     GUID,
     CameraParameters,
     LightParameters,
